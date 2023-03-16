@@ -9,10 +9,21 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class PrimaryController {
+    
+    @FXML
+    private TextField textFieldEmail;
+    @FXML
+    private TextField textFieldPassword;
+    @FXML
+    private Button buttonLogin;
+    
 
     public void initialize() {
+
         try {
             InputStream serviceAccount = new FileInputStream("/Users/cgmasoud/NetBeansProjects/KanDo/kando-project-management-firebase-adminsdk-nkidp-256da28ef7.json");
     
@@ -20,17 +31,18 @@ public class PrimaryController {
             FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(credentials)
                 .build();
-
             FirebaseApp.initializeApp(options);
-
             Firestore db = FirestoreClient.getFirestore();
         } catch (IOException e) {
             System.out.println("Could not connect to Firestore.");
             e.printStackTrace();
         }
-        
     }
     
+    public void handleLogin() {
+        
+    }
+
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
