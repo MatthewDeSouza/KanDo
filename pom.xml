@@ -26,6 +26,11 @@
             <version>9.0.0</version>
         </dependency>
         <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-commons</artifactId>
+            <version>11.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>14</version>
