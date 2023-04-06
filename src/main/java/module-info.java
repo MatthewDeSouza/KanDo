@@ -8,4 +8,8 @@ module com.group5.kando {
 
     opens com.group5.kando to javafx.fxml;
     exports com.group5.kando;
+    exports com.group5.kando.backend.exception;
+    exports com.group5.kando.backend;
+    exports com.group5.kando.backend.status;
+    opens com.group5.kando.backend to javafx.fxml;
 }
