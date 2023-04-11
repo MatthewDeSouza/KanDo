@@ -29,14 +29,15 @@ public class UserLoginController {
     }
 
     public void handleLogin() {
-        //auth = FirebaseAuth.getInstance();
-        String email = textFieldEmail.getText();
-        String password = textFieldPassword.getText();
-        //auth.signInWithEmailAndPassword(email, password);
+        try {
+            //auth = FirebaseAuth.getInstance();
+            //String email = textFieldEmail.getText();
+            //String password = textFieldPassword.getText();
+            //auth.signInWithEmailAndPassword(email, password);
+            App.setRoot("HomePage");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("HomePage");
-    }
 }
