@@ -18,17 +18,35 @@ public class AdminHomePageController {
     @FXML
     private Label ToDo5;
     @FXML
-    private Label Label1;
-    @FXML
     private Label OutputLabel;
+    @FXML
+    private Label Todo6;
 
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
+    
 
     @FXML
-    private void OutputLabel(MouseEvent event) {
-        System.out.println("Add new components to the project.");
-        }
+    private void OutputLabel(MouseEvent e) {
+    if(true) Todo1:{
+    OutputLabel.setText("Add functionality to the project");
+    } if(true) Todo2:{
+    OutputLabel.setText("Add functionality to the project");
     }
+    if(true) Todo3:{
+    OutputLabel.setText("Add functionality to the project");
+        }
+    if(true) Todo4:{
+    OutputLabel.setText("Add functionality to the project");
+    }
+    if(true) Todo5:{
+    OutputLabel.setText("Add functionality to the project");
+    }
+    if(true) Todo6:{
+    OutputLabel.setText("Add functionality to the project");
+    }
+    }
+}
+    
     
