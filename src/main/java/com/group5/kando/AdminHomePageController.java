@@ -29,23 +29,38 @@ public class AdminHomePageController {
 
     @FXML
     private void OutputLabel(MouseEvent e) {
-    if(true) Todo1:{
-    OutputLabel.setText("Add functionality to the project");
-    } if(true) Todo2:{
-    OutputLabel.setText("Add functionality to the project");
+        OutputLabel.setText("Descriptions");
+        
     }
-    if(true) Todo3:{
-    OutputLabel.setText("Add functionality to the project");
-        }
-    if(true) Todo4:{
-    OutputLabel.setText("Add functionality to the project");
+
+    @FXML
+    private void Todo1Output(MouseEvent event) {
+        OutputLabel.setText("Add functionality to the project");
     }
-    if(true) Todo5:{
-    OutputLabel.setText("Add functionality to the project");
+
+    @FXML
+    private void Todo2Output(MouseEvent event) {
+        OutputLabel.setText("Add method to View Users");
     }
-    if(true) Todo6:{
-    OutputLabel.setText("Add functionality to the project");
+
+    @FXML
+    private void Todo3Output(MouseEvent event) {
+        OutputLabel.setText("Create User Interface");
     }
+
+    @FXML
+    private void Todo4Output(MouseEvent event) {
+        OutputLabel.setText("Create a page for users to create an account");
+    }
+
+    @FXML
+    private void Todo5Output(MouseEvent event) {
+        OutputLabel.setText("Add new features for users to navigate the project");
+    }
+
+    @FXML
+    private void Todo6Output(MouseEvent event) {
+        OutputLabel.setText("Create login page for users");
     }
 }
     
