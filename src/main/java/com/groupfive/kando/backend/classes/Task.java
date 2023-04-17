@@ -2,15 +2,14 @@ package com.groupfive.kando.backend.classes;
 
 import com.groupfive.kando.backend.status.Status;
 import java.util.Date;
-import java.util.Set;
 
 public class Task {
     private String name;
     private String description;
     private Date startDate;
     private Date endDate;
-    private Set<Employee> assignedTo;
     private Status status;
+    private String priority;
 
     public String getName() {
         return name;
@@ -42,14 +41,6 @@ public class Task {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public Set<User> getAssignedTo() {
-        return assignedTo;
-    }
-
-    public void setAssignedTo(Set<User> assignedTo) {
-        this.assignedTo = assignedTo;
     }
 
     public Status getStatus() {
