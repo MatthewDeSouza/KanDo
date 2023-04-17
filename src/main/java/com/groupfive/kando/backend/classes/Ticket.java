@@ -10,6 +10,7 @@ public class Ticket {
     private Status status;
     private Set<Task> tasks;
     private Set<Bug> bugs;
+    private Set<Employee> assignedTo;
 
     /**
      * Constructor to create a Ticket, and assign it to the {@link Status} backlog.
