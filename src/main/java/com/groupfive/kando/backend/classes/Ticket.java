@@ -85,4 +85,29 @@ public class Ticket {
         this.status = status;
     }
 
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<Bug> getBugs() {
+        return bugs;
+    }
+
+    public void setBugs(Set<Bug> bugs) {
+        this.bugs = bugs;
+    }
+
+    public Set<Employee> getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Set<Employee> assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+    
+
 }
