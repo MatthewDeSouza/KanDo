@@ -2,11 +2,14 @@ package com.groupfive.kando.backend.classes;
 
 import com.groupfive.kando.backend.exception.TicketAlreadyCompleteException;
 import com.groupfive.kando.backend.status.Status;
+import java.util.Set;
 
 public class Ticket {
     private String title;
     private String content;
     private Status status;
+    private Set<Task> tasks;
+    private Set<Bug> bugs;
 
     /**
      * Constructor to create a Ticket, and assign it to the {@link Status} backlog.
