@@ -50,6 +50,14 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
     
     @Override
     public String toString() {
