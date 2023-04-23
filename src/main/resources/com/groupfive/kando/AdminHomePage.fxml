@@ -102,7 +102,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <ComboBox layoutX="8.0" layoutY="4.0" promptText="Select Current Project" />
+            <ComboBox fx:id="comboBoxProject" layoutX="8.0" layoutY="4.0" onAction="#handleProjectSelection" promptText="Select Current Project" />
          </children>
       </AnchorPane>
    </top>
