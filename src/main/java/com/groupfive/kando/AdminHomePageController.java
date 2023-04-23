@@ -52,5 +52,10 @@ public class AdminHomePageController {
         }
 
     }
+    
+    public void handleProjectSelection() {
+        String project = comboBoxProject.getValue().toString();
+        //query db for tickets and fill list views accordingly
+    }
 }
 
