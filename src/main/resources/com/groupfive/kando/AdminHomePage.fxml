@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group5.kando.AdminHomePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group5.kando.AdminHomePageController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -102,7 +102,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <ComboBox layoutX="8.0" layoutY="4.0" promptText="Select Current Project" />
+            <ComboBox fx:id="comboBoxProject" layoutX="7.0" layoutY="5.0" onAction="#handleProjectSelection" promptText="Select Current Project" />
          </children>
       </AnchorPane>
    </top>

@@ -19,7 +19,6 @@ public class UserLoginController {
     private TextField textFieldPassword;
     @FXML
     private Label labelLoginFailed;
-    private Firestore db;
     private User admin = new User("admin@kando.com");
     private User manager = new User("manager@kando.com");
     private User teamMember = new User("teammember@kando.com");
@@ -28,16 +27,7 @@ public class UserLoginController {
         admin.setPassword("abcdef");
         manager.setPassword("abcdef");
         teamMember.setPassword("abcdef");
-        try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(getClass().getResourceAsStream("key.json")))
-                    .build();
-            FirebaseApp.initializeApp(options);
-            db = FirestoreClient.getFirestore();
-        } catch (Exception e) {
-            System.out.println("Could not connect to Firestore.");
-            e.printStackTrace();
-        }
+        
     }
 
     public void handleLogin() {
