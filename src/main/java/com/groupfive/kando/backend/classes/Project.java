@@ -1,5 +1,6 @@
 package com.groupfive.kando.backend.classes;
 
+import com.groupfive.kando.backend.exception.EmployeeHasProjectException;
 import com.groupfive.kando.backend.status.Status;
 import java.util.Date;
 import java.util.Set;
@@ -10,6 +11,7 @@ public class Project {
     private Date startDate;
     private Date endDate;
     private Set<Ticket> tickets;
+    private Set<Employee> employees;
     private Status status;
 
     public String getName() {
@@ -58,6 +60,22 @@ public class Project {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void addEmployee(Employee employee) throws EmployeeHasProjectException {
+        if (employees.contains(employee)) {
+            throw new EmployeeHasProjectException("Employee already apart of the project!");
+        }
+        employees.add(employee);
+        employee.getProjects().add(this);
+    }
+
+    public void removeEmployee(Employee employee) {
+        if (!employees.contains(employee)) {
+            return;
+        }
+        employees.remove(employee);
+        employee.getProjects().remove(this);
     }
     
     @Override
