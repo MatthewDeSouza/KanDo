@@ -6,6 +6,9 @@ module com.groupfive.kando {
     requires com.google.auth.oauth2;
     requires firebase.admin;
     requires google.cloud.firestore;
+    requires google.cloud.core;
+    requires com.google.api.apicommon;
+    requires proto.google.cloud.firestore.v1;
 
     opens com.groupfive.kando to javafx.fxml;
     exports com.groupfive.kando;
