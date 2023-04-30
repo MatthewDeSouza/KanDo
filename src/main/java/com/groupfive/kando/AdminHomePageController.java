@@ -2,10 +2,12 @@ package com.groupfive.kando;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -14,7 +16,12 @@ import com.groupfive.kando.backend.classes.Project;
 import com.groupfive.kando.backend.classes.Ticket;
 import com.groupfive.kando.backend.status.Status;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -112,7 +119,34 @@ public class AdminHomePageController {
         }
     }
 
+    public void handleAddProject() {
+        String name = textFieldProjectName.getText();
+        String desc = textFieldProjectDesc.getText();
+        String startDate = datePickerStart.getValue().toString();
+        String endDate = datePickerEnd.getValue().toString();
+        
+        DocumentReference docRef = db.collection("Projects").document(UUID.randomUUID().toString());
+        Map<String, String> data = new HashMap<>();
+        data.put("name", name);
+        data.put("description", desc);
+        data.put("startDate", startDate);
+        data.put("endDate", endDate);
+        ApiFuture<WriteResult> result = docRef.set(data);
+    }
     
-    
+    public void handleAddTask() {
+        String name = textFieldTaskName.getText();
+        String desc = textFieldTaskDesc.getText();
+        String type = textFieldTaskType.getText();
+        String status = comboBoxStatus.getValue().toString();
+        
+        DocumentReference docRef = db.collection("Tickets").document(UUID.randomUUID().toString());
+        Map<String, String> data = new HashMap<>();
+        data.put("name", name);
+        data.put("description", desc);
+        data.put("type", type);
+        data.put("status", status);
+        ApiFuture<WriteResult> result = docRef.set(data);
+    }
 }
 
