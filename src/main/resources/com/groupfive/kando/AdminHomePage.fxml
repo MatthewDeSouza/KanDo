@@ -133,7 +133,7 @@
                </font>
             </Text>
             <ComboBox fx:id="comboBoxProject" layoutX="7.0" layoutY="5.0" onAction="#handleProjectSelection" promptText="Select Current Project" />
-            <Button layoutX="931.0" layoutY="8.0" mnemonicParsing="false" text="Refresh" />
+            <Button layoutX="931.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleProjectSelection" text="Refresh" />
          </children>
       </AnchorPane>
    </top>
