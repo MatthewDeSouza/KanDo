@@ -20,6 +20,17 @@ public class UserLoginController {
     private TextField textFieldEmail;
     @FXML
     private TextField textFieldPassword;
+    
+    public void initialize() {
+        try {
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(getClass().getResourceAsStream("key.json")))
+                    .build();
+            FirebaseApp.initializeApp(options);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public void handleLogin() {
         String email = textFieldEmail.getText();
@@ -32,7 +43,8 @@ public class UserLoginController {
         }
 
         try {
-            UserRecord user = FirebaseAuth.getInstance().getUserByEmail(email);
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            UserRecord user = auth.getUserByEmail(email);
             if (user != null) {
                 switch (email) {
                     case "admin@kando.com":
