@@ -86,6 +86,41 @@
                   </AnchorPane>
               </content>
             </Tab>
+            <Tab text="Change Status">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="textFieldUpdate" promptText="Task Name" />
+                              <ComboBox fx:id="comboBoxUpdate" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Task Status" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleUpdateStatus" text="Update Status" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Delete Task">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <TextField fx:id="textFieldDelete" promptText="Task Name" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDelete" text="Delete Task" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>
@@ -98,6 +133,7 @@
                </font>
             </Text>
             <ComboBox fx:id="comboBoxProject" layoutX="7.0" layoutY="5.0" onAction="#handleProjectSelection" promptText="Select Current Project" />
+            <Button layoutX="931.0" layoutY="8.0" mnemonicParsing="false" text="Refresh" />
          </children>
       </AnchorPane>
    </top>
