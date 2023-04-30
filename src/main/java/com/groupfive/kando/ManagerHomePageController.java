@@ -89,6 +89,9 @@ public class ManagerHomePageController {
     }
 
     public void handleProjectSelection() {
+        toDoTickets.clear();
+        doingTickets.clear();
+        doneTickets.clear();
         try {
             String projectName = comboBoxProject.getValue().toString();
             ApiFuture<QuerySnapshot> query = db.collection("Tickets")
