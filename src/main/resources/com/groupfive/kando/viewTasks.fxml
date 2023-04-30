@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane layoutX="249.0" layoutY="67.0" prefHeight="103.0" prefWidth="600.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="WHITE" layoutX="249.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" underline="true">
+            <Text fx:id="taskName" fill="WHITE" layoutX="450.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" underline="true">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
@@ -23,9 +25,17 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView layoutX="68.0" layoutY="36.0" prefHeight="213.0" prefWidth="451.0" />
-            <Text layoutX="244.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Project Tasks" />
-            <Button layoutX="274.0" layoutY="258.0" mnemonicParsing="false" text="Back" />
+            <VBox prefHeight="500.0" prefWidth="1000.0" spacing="20.0">
+               <children>
+                  <TextArea fx:id="textAreaDesc" prefHeight="200.0" prefWidth="200.0" />
+                  <TextField fx:id="textFieldType" />
+                  <TextField fx:id="textFieldStatus" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Back" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
          </children>
       </AnchorPane>
    </center>
