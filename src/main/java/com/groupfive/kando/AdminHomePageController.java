@@ -10,6 +10,9 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firestore.v1.Document;
 import com.groupfive.kando.backend.classes.Project;
@@ -62,6 +65,14 @@ public class AdminHomePageController {
     private TextField textFieldDelete;
     @FXML
     private ComboBox comboBoxUpdate;
+    @FXML
+    private TextField textFieldEmail;
+    @FXML
+    private TextField textFieldUserName;
+    @FXML
+    private TextField textFieldPhone;
+    @FXML
+    private TextField textFieldPassword;
     private ObservableList<String> statusList2;
     private ObservableList<String> projects;
     private ObservableList<String> statusList;
@@ -96,6 +107,30 @@ public class AdminHomePageController {
         statusList2.add("Doing");
         statusList2.add("Done");
 
+    }
+    
+    public void handleCreateUser() {
+        String email = textFieldEmail.getText();
+        String name = textFieldUserName.getText();
+        String phone = textFieldPhone.getText();
+        String password = textFieldPassword.getText();
+
+        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                .setEmail(email)
+                .setEmailVerified(false)
+                .setPassword(password)
+                .setPhoneNumber(phone)
+                .setDisplayName(name)
+                .setDisabled(false);
+
+        UserRecord userRecord;
+        try {
+            userRecord = FirebaseAuth.getInstance().createUser(request);
+            System.out.println("Successfully created new user: " + userRecord.getUid());
+
+        } catch (FirebaseAuthException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void handleProjectSelection() {
