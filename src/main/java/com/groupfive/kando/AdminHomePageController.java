@@ -12,13 +12,16 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.google.firestore.v1.Document;
 import com.groupfive.kando.backend.classes.Project;
 import com.groupfive.kando.backend.classes.Ticket;
+import com.groupfive.kando.backend.status.Status;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 public class AdminHomePageController {
 
@@ -30,32 +33,37 @@ public class AdminHomePageController {
     private ListView listViewDoing;
     @FXML
     private ListView listViewDone;
+    @FXML
+    private TextField textFieldProjectName;
+    @FXML
+    private TextField textFieldProjectDesc;
+    @FXML
+    private DatePicker datePickerStart;
+    @FXML
+    private DatePicker datePickerEnd;
+    @FXML
+    private TextField textFieldTaskName;
+    @FXML
+    private TextField textFieldTaskDesc;
+    @FXML
+    private TextField textFieldTaskType;
+    @FXML
+    private ComboBox comboBoxStatus;
     private ObservableList<String> projects;
+    private ObservableList<String> statusList;
     private ObservableList<Ticket> toDoTickets;
     private ObservableList<Ticket> doingTickets;
     private ObservableList<Ticket> doneTickets;
     private Firestore db;
 
     public void initialize() {
+        statusList = comboBoxStatus.getItems();
         projects = comboBoxProject.getItems();
         toDoTickets = listViewToDo.getItems();
         doingTickets = listViewDoing.getItems();
         doneTickets = listViewDone.getItems();
+        db = FirestoreClient.getFirestore();
         try {
-            /*
-            try {
-                FirebaseOptions options = new FirebaseOptions.Builder()
-                        .setCredentials(GoogleCredentials.fromStream(getClass().getResourceAsStream("key.json")))
-                        .build();
-                FirebaseApp.initializeApp(options);
-                db = FirestoreClient.getFirestore();
-            } catch (Exception e) {
-                System.out.println("Could not connect to Firestore.");
-                e.printStackTrace();
-            }
-*/
-            db = FirestoreClient.getFirestore();
-            
             ApiFuture<QuerySnapshot> query = db.collection("Projects").get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
             for (DocumentSnapshot document : documents) {
@@ -66,6 +74,9 @@ public class AdminHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        statusList.add("To Do");
+        statusList.add("Doing");
+        statusList.add("Done");
 
     }
     
@@ -78,6 +89,7 @@ public class AdminHomePageController {
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
             for (DocumentSnapshot doc : documents) {
                 Ticket ticket = new Ticket(doc.getString("name"), doc.getString("description"));
+                ticket.setType(doc.getString("type"));
                 switch (doc.getString("status")) {
                     case "To Do":
                         toDoTickets.add(ticket);
@@ -99,5 +111,8 @@ public class AdminHomePageController {
             ex.printStackTrace();
         }
     }
+
+    
+    
 }
 
