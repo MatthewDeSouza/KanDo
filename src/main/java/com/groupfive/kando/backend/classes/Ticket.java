@@ -8,6 +8,7 @@ public class Ticket {
     private String title;
     private String content;
     private Status status;
+    private String type;
     private Set<Task> tasks;
     private Set<Bug> bugs;
     private Set<Employee> assignedTo;
@@ -108,6 +109,20 @@ public class Ticket {
     public void setAssignedTo(Set<Employee> assignedTo) {
         this.assignedTo = assignedTo;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s\n[%s]", title, type);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
     
 
 }
