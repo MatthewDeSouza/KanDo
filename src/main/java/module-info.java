@@ -1,6 +1,8 @@
 module com.groupfive.kando {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.slf4j;
+    requires ch.qos.logback.classic;
     //requires com.google.api.apicommon;
     requires com.google.auth;
     requires com.google.auth.oauth2;
