@@ -36,13 +36,18 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="419.0" layoutY="480.0" mnemonicParsing="false" text="Add New User" />
-                        <ListView layoutX="105.0" layoutY="58.0" prefHeight="412.0" prefWidth="791.0" />
-                        <Text layoutX="405.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Users">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
+                        <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <TextField fx:id="textFieldUserName" promptText="Display Name" />
+                              <TextField fx:id="textFieldEmail" promptText="Email" />
+                              <TextField fx:id="textFieldPhone" promptText="Phone Number" />
+                              <TextField fx:id="textFieldPassword" promptText="Password" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCreateUser" text="Register New User" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
               </content>
