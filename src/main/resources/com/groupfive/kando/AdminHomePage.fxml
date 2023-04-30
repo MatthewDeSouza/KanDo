@@ -60,7 +60,7 @@
                               <TextField fx:id="textFieldProjectDesc" promptText="Project Description" />
                               <DatePicker fx:id="datePickerStart" maxWidth="1.7976931348623157E308" promptText="Start Date" />
                               <DatePicker fx:id="datePickerEnd" maxWidth="1.7976931348623157E308" promptText="End Date" />
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add Project" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddProject" text="Add Project" />
                            </children>
                         </VBox>
                      </children></AnchorPane>
@@ -76,7 +76,7 @@
                               <TextField fx:id="textFieldTaskDesc" promptText="Task Description" />
                               <TextField fx:id="textFieldTaskType" promptText="Task Type" />
                               <ComboBox fx:id="comboBoxStatus" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Task Status" />
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add Task" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddTask" text="Add Task" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
