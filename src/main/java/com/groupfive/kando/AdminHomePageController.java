@@ -92,6 +92,9 @@ public class AdminHomePageController {
         statusList.add("To Do");
         statusList.add("Doing");
         statusList.add("Done");
+        statusList2.add("To Do");
+        statusList2.add("Doing");
+        statusList2.add("Done");
 
     }
 
