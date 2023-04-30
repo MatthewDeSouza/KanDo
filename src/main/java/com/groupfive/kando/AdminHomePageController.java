@@ -162,8 +162,7 @@ public class AdminHomePageController {
             String name = textFieldUpdate.getText();
             String status = comboBoxUpdate.getValue().toString();
             String docId = "";
-            
-            String projectName = comboBoxProject.getValue().toString();
+
             ApiFuture<QuerySnapshot> query = db.collection("Tickets")
                     .whereEqualTo("name", name)
                     .get();
@@ -180,4 +179,25 @@ public class AdminHomePageController {
             ex.printStackTrace();
         }
     }
+    
+    public void handleDelete() {
+        try {
+            String name = textFieldDelete.getText();
+            String docId = "";
+
+            ApiFuture<QuerySnapshot> query = db.collection("Tickets")
+                    .whereEqualTo("name", name)
+                    .get();
+            List<QueryDocumentSnapshot> documents = query.get().getDocuments();
+            for (DocumentSnapshot doc : documents) {
+                docId = doc.getString(name);
+            }
+            ApiFuture<WriteResult> writeResult = db.collection("Tickets").document(docId).delete();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        } catch (ExecutionException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }
