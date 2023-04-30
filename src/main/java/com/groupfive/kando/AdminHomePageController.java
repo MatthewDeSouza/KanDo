@@ -56,6 +56,13 @@ public class AdminHomePageController {
     private TextField textFieldTaskType;
     @FXML
     private ComboBox comboBoxStatus;
+    @FXML
+    private TextField textFieldUpdate;
+    @FXML
+    private TextField textFieldDelete;
+    @FXML
+    private ComboBox comboBoxUpdate;
+    private ObservableList<String> statusList2;
     private ObservableList<String> projects;
     private ObservableList<String> statusList;
     private ObservableList<Ticket> toDoTickets;
@@ -65,6 +72,7 @@ public class AdminHomePageController {
 
     public void initialize() {
         statusList = comboBoxStatus.getItems();
+        statusList2 = comboBoxUpdate.getItems();
         projects = comboBoxProject.getItems();
         toDoTickets = listViewToDo.getItems();
         doingTickets = listViewDoing.getItems();
@@ -84,9 +92,12 @@ public class AdminHomePageController {
         statusList.add("To Do");
         statusList.add("Doing");
         statusList.add("Done");
+        statusList2.add("To Do");
+        statusList2.add("Doing");
+        statusList2.add("Done");
 
     }
-    
+
     public void handleProjectSelection() {
         try {
             String projectName = comboBoxProject.getValue().toString();
@@ -124,7 +135,7 @@ public class AdminHomePageController {
         String desc = textFieldProjectDesc.getText();
         String startDate = datePickerStart.getValue().toString();
         String endDate = datePickerEnd.getValue().toString();
-        
+
         DocumentReference docRef = db.collection("Projects").document(UUID.randomUUID().toString());
         Map<String, String> data = new HashMap<>();
         data.put("name", name);
@@ -133,13 +144,13 @@ public class AdminHomePageController {
         data.put("endDate", endDate);
         ApiFuture<WriteResult> result = docRef.set(data);
     }
-    
+
     public void handleAddTask() {
         String name = textFieldTaskName.getText();
         String desc = textFieldTaskDesc.getText();
         String type = textFieldTaskType.getText();
         String status = comboBoxStatus.getValue().toString();
-        
+
         DocumentReference docRef = db.collection("Tickets").document(UUID.randomUUID().toString());
         Map<String, String> data = new HashMap<>();
         data.put("name", name);
@@ -148,5 +159,48 @@ public class AdminHomePageController {
         data.put("status", status);
         ApiFuture<WriteResult> result = docRef.set(data);
     }
-}
 
+    public void handleUpdateStatus() {
+        try {
+            String name = textFieldUpdate.getText();
+            String status = comboBoxUpdate.getValue().toString();
+            String docId = "";
+
+            ApiFuture<QuerySnapshot> query = db.collection("Tickets")
+                    .whereEqualTo("name", name)
+                    .get();
+            List<QueryDocumentSnapshot> documents = query.get().getDocuments();
+            for (DocumentSnapshot doc : documents) {
+                docId = doc.getString(name);
+            }
+            DocumentReference docRef = db.collection("Tickets").document(docId);
+            ApiFuture<WriteResult> future = docRef.update("status", status);
+            WriteResult result = future.get();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        } catch (ExecutionException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void handleDelete() {
+        try {
+            String name = textFieldDelete.getText();
+            String docId = "";
+
+            ApiFuture<QuerySnapshot> query = db.collection("Tickets")
+                    .whereEqualTo("name", name)
+                    .get();
+            List<QueryDocumentSnapshot> documents = query.get().getDocuments();
+            for (DocumentSnapshot doc : documents) {
+                docId = doc.getString(name);
+            }
+            ApiFuture<WriteResult> writeResult = db.collection("Tickets").document(docId).delete();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        } catch (ExecutionException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+}
