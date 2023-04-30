@@ -112,7 +112,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return String.format("%s\n[%s]", title, type);
+        return String.format("%s\n%s\n[%s]", title, content, type);
     }
 
     public String getType() {
