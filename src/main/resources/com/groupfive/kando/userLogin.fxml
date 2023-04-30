@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupfive.kando.UserLoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupfive.kando.UserLoginController">
    <left>
       <AnchorPane prefHeight="500.0" prefWidth="325.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
          <children>
@@ -22,21 +22,21 @@
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="500.0" prefWidth="415.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="600.0" prefWidth="676.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="textFieldEmail" layoutX="101.0" layoutY="200.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
-            <Button layoutX="137.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #0598ff;" text="Login" />
+            <TextField fx:id="textFieldEmail" layoutX="258.0" layoutY="200.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button layoutX="299.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #0598ff;" text="Login" />
             <Label fx:id="labelLoginFailed" layoutX="98.0" layoutY="386.0" text="LOGIN FAILED" textFill="RED" visible="false">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Text fill="#0598ff" layoutX="125.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+            <Text fill="#0598ff" layoutX="288.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
                <font>
                   <Font size="22.0" />
                </font>
             </Text>
-            <PasswordField fx:id="textFieldPassword" layoutX="101.0" layoutY="250.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField fx:id="textFieldPassword" layoutX="258.0" layoutY="251.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
          </children>
       </AnchorPane>
    </right>
