@@ -181,6 +181,7 @@ public class AdminHomePageController {
         data.put("startDate", startDate);
         data.put("endDate", endDate);
         ApiFuture<WriteResult> result = docRef.set(data);
+        projects.add(name);
     }
 
     public void handleAddTask() {
