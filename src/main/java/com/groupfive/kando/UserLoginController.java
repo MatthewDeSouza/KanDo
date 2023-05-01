@@ -1,19 +1,20 @@
 package com.groupfive.kando;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserRecord;
-import com.google.firebase.cloud.FirestoreClient;
-import com.groupfive.kando.backend.classes.User;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * The UserLoginController class GUI logic for the app's login page.
+ * @author Chris Masoud
+ * @author Matthew DeSouza
+ */
 public class UserLoginController {
 
     @FXML
@@ -21,6 +22,10 @@ public class UserLoginController {
     @FXML
     private TextField textFieldPassword;
     
+    /**
+     * The initialize() method runs at the start of the app and contains code to
+     * set up the app.
+     */
     public void initialize() {
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -32,6 +37,10 @@ public class UserLoginController {
         }
     }
 
+    /**
+     * The handleLogin() method authenticates and opens the appropriate homepage
+     * depending on the user's access level.
+     */
     public void handleLogin() {
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
