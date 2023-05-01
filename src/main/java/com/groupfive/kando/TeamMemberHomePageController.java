@@ -17,10 +17,15 @@ import java.util.concurrent.ExecutionException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+/**
+ * The TeamMemberHomePageController class contains GUI logic for the team 
+ * member's homepage.
+ * @author Chris Masoud
+ * @author Matthew Desouza
+ */
 public class TeamMemberHomePageController {
 
     @FXML
@@ -53,6 +58,10 @@ public class TeamMemberHomePageController {
     private ObservableList<Ticket> doneTickets;
     private Firestore db;
 
+    /**
+     * The initialize() method runs at the start of the app and contains code to
+     * set up the app.
+     */
     public void initialize() {
         statusList = comboBoxStatus.getItems();
         statusList2 = comboBoxUpdate.getItems();
@@ -80,6 +89,10 @@ public class TeamMemberHomePageController {
         statusList2.add("Done");
     }
 
+    /**
+     * The handleProjectSelection() method loads the ListViews with tickets from
+     * the project that the user selected.
+     */
     public void handleProjectSelection() {
         toDoTickets.clear();
         doingTickets.clear();
@@ -91,9 +104,8 @@ public class TeamMemberHomePageController {
                     .get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
             for (DocumentSnapshot doc : documents) {
-                Ticket ticket = new Ticket(doc.getString("name"), doc.getString("description"));
-                ticket.setType(doc.getString("type"));
-                switch (doc.getString("status")) {
+                Ticket ticket = new Ticket(doc.getString("name"), doc.getString("description"), doc.getString("status"), doc.getString("type"));
+                switch (ticket.getStatus()) {
                     case "To Do":
                         toDoTickets.add(ticket);
                         break;
@@ -115,6 +127,9 @@ public class TeamMemberHomePageController {
         }
     }
 
+    /**
+     * The handleAddTask() method adds a new ticket into Firestore.
+     */
     public void handleAddTask() {
         String name = textFieldTaskName.getText();
         String desc = textFieldTaskDesc.getText();
@@ -130,6 +145,9 @@ public class TeamMemberHomePageController {
         ApiFuture<WriteResult> result = docRef.set(data);
     }
 
+    /**
+     * The handleUpdateStatus() method changes the status of a ticket.
+     */
     public void handleUpdateStatus() {
         try {
             String name = textFieldUpdate.getText();
@@ -153,6 +171,9 @@ public class TeamMemberHomePageController {
         }
     }
 
+    /**
+     * The handleDelete() method deletes a ticket from Firestore.
+     */
     public void handleDelete() {
         try {
             String name = textFieldDelete.getText();
