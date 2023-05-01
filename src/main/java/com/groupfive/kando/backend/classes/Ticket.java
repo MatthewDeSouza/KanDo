@@ -1,17 +1,15 @@
 package com.groupfive.kando.backend.classes;
 
-import com.groupfive.kando.backend.exception.TicketAlreadyCompleteException;
-import com.groupfive.kando.backend.status.Status;
-import java.util.Set;
-
+/**
+ * The Ticket class holds project task information.
+ * @author Chris Masoud
+ * @author Matthew DeSouza
+ */
 public class Ticket {
     private String title;
     private String content;
-    private Status status;
+    private String status;
     private String type;
-    private Set<Task> tasks;
-    private Set<Bug> bugs;
-    private Set<Employee> assignedTo;
 
     /**
      * Constructor to create a Ticket, and assign it to the {@link Status} backlog.
@@ -22,7 +20,8 @@ public class Ticket {
     public Ticket(String title, String content) {
         this.title = title;
         this.content = content;
-        status = Status.BACKLOG;
+        this.status = "To Do";
+        this.type = "";
     }
 
     /**
@@ -31,98 +30,87 @@ public class Ticket {
      * @param title Title of the ticket.
      * @param content Content of the ticket.
      * @param status Status of the ticket.
-     * @author Matthew DeSouza
+     * @param type Type of the ticket.
      */
-    public Ticket(String title, String content, Status status) {
+    public Ticket(String title, String content, String status, String type) {
         this.title = title;
         this.content = content;
         this.status = status;
+        this.type = type;
     }
 
     /**
-     * Increments the ticket according to the current {@link Status} assigned to it.
-     *
-     * @throws TicketAlreadyCompleteException Thrown when the Ticket is already of {@link Status} DONE.
-     * @author Matthew DeSouza
+     * The getTitle() method returns the title of the current instance.
+     * @return title
      */
-    public void incrementTicket() throws TicketAlreadyCompleteException {
-        switch (status) {
-            case BACKLOG:
-                status = Status.TODO;
-                break;
-            case TODO:
-                status = Status.WORKING;
-                break;
-            case WORKING:
-                status = Status.DONE;
-                break;
-            case DONE:
-                throw new TicketAlreadyCompleteException("Ticket is already done! [status=" + status.name() + "].");
-        }
-    }
-
-
     public String getTitle() {
         return title;
     }
 
+    /**
+     * The setTitle() method sets the current title to the string passed in.
+     * @param title 
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * The getContent() method returns the content of the current instance.
+     * @return content
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * The setContent() method sets the current content to the string passed in.
+     * @param content 
+     */
     public void setContent(String content) {
         this.content = content;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public Set<Bug> getBugs() {
-        return bugs;
-    }
-
-    public void setBugs(Set<Bug> bugs) {
-        this.bugs = bugs;
-    }
-
-    public Set<Employee> getAssignedTo() {
-        return assignedTo;
-    }
-
-    public void setAssignedTo(Set<Employee> assignedTo) {
-        this.assignedTo = assignedTo;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s\n%s\n[%s]", title, content, type);
-    }
-
+    /**
+     * The getType() method returns the type of the current instance.
+     * @return type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * The setType() method sets the current type to the string passed in.
+     * @param type 
+     */
     public void setType(String type) {
         this.type = type;
     }
-    
-    
 
+    /**
+     * The getStatus() method returns the title of the current instance.
+     * @return status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * The setStatus() method sets the current status to the string passed in.
+     * @param status 
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * The toString() method override provides a clean display of ticket 
+     * information.
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return String.format("%s\n%s\n[%s]", title, content, type);
+    }
+    
 }
