@@ -21,7 +21,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+/**
+ * The ManagerHomePageController class contains GUI logic for the manager's
+ * homepage.
+ * @author Chris Masoud
+ * @author Matthew Desouza
+ */
 public class ManagerHomePageController {
+    
     @FXML
     private ComboBox comboBoxProject;
     @FXML
@@ -60,6 +67,10 @@ public class ManagerHomePageController {
     private ObservableList<Ticket> doneTickets;
     private Firestore db;
 
+    /**
+     * The initialize() method runs at the start of the app and contains code to
+     * set up the app.
+     */
     public void initialize() {
         statusList = comboBoxStatus.getItems();
         statusList2 = comboBoxUpdate.getItems();
@@ -88,6 +99,10 @@ public class ManagerHomePageController {
 
     }
 
+    /**
+     * The handleProjectSelection() method loads the ListViews with tickets from
+     * the project that the user selected.
+     */
     public void handleProjectSelection() {
         toDoTickets.clear();
         doingTickets.clear();
@@ -99,9 +114,8 @@ public class ManagerHomePageController {
                     .get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
             for (DocumentSnapshot doc : documents) {
-                Ticket ticket = new Ticket(doc.getString("name"), doc.getString("description"));
-                ticket.setType(doc.getString("type"));
-                switch (doc.getString("status")) {
+                Ticket ticket = new Ticket(doc.getString("name"), doc.getString("description"), doc.getString("status"), doc.getString("type"));
+                switch (ticket.getStatus()) {
                     case "To Do":
                         toDoTickets.add(ticket);
                         break;
@@ -123,6 +137,9 @@ public class ManagerHomePageController {
         }
     }
 
+    /**
+     * The handleAddProject() method adds a new project into Firestore.
+     */
     public void handleAddProject() {
         String name = textFieldProjectName.getText();
         String desc = textFieldProjectDesc.getText();
@@ -139,6 +156,9 @@ public class ManagerHomePageController {
         projects.add(name);
     }
 
+    /**
+     * The handleAddTask() method adds a new ticket into Firestore.
+     */
     public void handleAddTask() {
         String name = textFieldTaskName.getText();
         String desc = textFieldTaskDesc.getText();
@@ -154,6 +174,9 @@ public class ManagerHomePageController {
         ApiFuture<WriteResult> result = docRef.set(data);
     }
 
+    /**
+     * The handleUpdateStatus() method changes the status of a ticket.
+     */
     public void handleUpdateStatus() {
         try {
             String name = textFieldUpdate.getText();
@@ -177,6 +200,9 @@ public class ManagerHomePageController {
         }
     }
     
+    /**
+     * The handleDelete() method deletes a ticket from Firestore.
+     */
     public void handleDelete() {
         try {
             String name = textFieldDelete.getText();
