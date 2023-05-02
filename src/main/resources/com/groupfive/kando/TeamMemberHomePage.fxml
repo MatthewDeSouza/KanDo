@@ -14,92 +14,93 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupfive.kando.TeamMemberHomePageController">
-   <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab style="-fx-background-color: lightblue;" text="Home Page">
-            <content>
-              <AnchorPane style="-fx-background-color: #0598ff;">
-                     <children>
-                        <ListView fx:id="listViewToDo" layoutX="30.0" layoutY="73.0" />
-                        <ListView fx:id="listViewDoing" layoutX="356.0" layoutY="73.0" />
-                        <ListView fx:id="listViewDone" layoutX="686.0" layoutY="73.0" />
-                        <Text fill="WHITE" layoutX="137.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To Do" textAlignment="CENTER" />
-                        <Text fill="WHITE" layoutX="463.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Doing" textAlignment="CENTER" />
-                        <Text fill="#fcf8f8" layoutX="795.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab style="-fx-background-color: lightblue;" text="Add New Task">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="528.0" prefWidth="1000.0" spacing="20.0">
-                           <children>
-                              <TextField fx:id="textFieldTaskName" promptText="Task Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
-                              <TextField fx:id="textFieldTaskDesc" promptText="Task Description" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
-                              <TextField fx:id="textFieldTaskType" promptText="Task Type" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
-                              <ComboBox fx:id="comboBoxStatus" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Task Status" style="-fx-background-color: #0598ff;" />
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddTask" style="-fx-background-color: #0598ff;" text="Add Task" />
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab style="-fx-background-color: lightblue;" text="Change Status">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
-                           <children>
-                              <TextField fx:id="textFieldUpdate" promptText="Task Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
-                              <ComboBox fx:id="comboBoxUpdate" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Task Status" style="-fx-background-color: #0598ff;" />
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleUpdateStatus" style="-fx-background-color: #0598ff;" text="Update Status" />
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab style="-fx-background-color: lightblue;" text="Delete Task">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                           <children>
-                              <TextField fx:id="textFieldDelete" promptText="Task Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: #0598ff;" text="Delete Task" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-   </center>
-   <top>
-      <AnchorPane prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
-         <children>
-            <Text fill="WHITE" layoutX="463.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KanDo">
-               <font>
-                  <Font name="System Bold" size="26.0" />
-               </font>
-            </Text>
-            <ComboBox fx:id="comboBoxProject" layoutX="7.0" layoutY="5.0" onAction="#handleProjectSelection" promptText="Select Current Project" />
-            <Button layoutX="931.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleProjectSelection" text="Refresh" />
-         </children>
-      </AnchorPane>
-   </top>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab style="-fx-background-color: lightblue;" text="Home Page">
+                    <content>
+                        <AnchorPane style="-fx-background-color: #0598ff;">
+                            <children>
+                                <ListView fx:id="listViewToDo" layoutX="30.0" layoutY="73.0" />
+                                <ListView fx:id="listViewDoing" layoutX="356.0" layoutY="73.0" />
+                                <ListView fx:id="listViewDone" layoutX="686.0" layoutY="73.0" />
+                                <Text fill="WHITE" layoutX="137.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To Do" textAlignment="CENTER" />
+                                <Text fill="WHITE" layoutX="463.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Doing" textAlignment="CENTER" />
+                                <Text fill="#fcf8f8" layoutX="795.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab style="-fx-background-color: lightblue;" text="Add New Task">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="528.0" prefWidth="1000.0" spacing="20.0">
+                                    <children>
+                                        <TextField fx:id="textFieldTaskName" promptText="Task Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
+                                        <TextField fx:id="textFieldTaskDesc" promptText="Task Description" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
+                                        <TextField fx:id="textFieldTaskType" promptText="Task Type" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
+                                        <ComboBox fx:id="comboBoxStatus" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Task Status" style="-fx-background-color: #0598ff;" />
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddTask" style="-fx-background-color: #0598ff;" text="Add Task" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab style="-fx-background-color: lightblue;" text="Change Status">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
+                                    <children>
+                                        <TextField fx:id="textFieldUpdate" promptText="Task Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
+                                        <ComboBox fx:id="comboBoxUpdate" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Task Status" style="-fx-background-color: #0598ff;" />
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleUpdateStatus" style="-fx-background-color: #0598ff;" text="Update Status" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab style="-fx-background-color: lightblue;" text="Delete Task">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="530.0" prefWidth="1000.0" spacing="20.0">
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                    <children>
+                                        <TextField fx:id="textFieldDelete" promptText="Task Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: #0598ff;" text="Delete Task" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    <top>
+        <AnchorPane prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
+            <children>
+                <Text fill="WHITE" layoutX="463.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KanDo">
+                    <font>
+                        <Font name="System Bold" size="26.0" />
+                    </font>
+                </Text>
+                <ComboBox fx:id="comboBoxProject" layoutX="7.0" layoutY="5.0" onAction="#handleProjectSelection" promptText="Select Current Project" />
+                <Button layoutX="842.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleProjectSelection" text="Refresh" />
+                <Button layoutX="921.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSignOut" text="Sign Out" />         
+            </children>
+        </AnchorPane>
+    </top>
 </BorderPane>
