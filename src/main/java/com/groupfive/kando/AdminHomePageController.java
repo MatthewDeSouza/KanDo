@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.groupfive.kando.backend.classes.Ticket;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -268,4 +269,15 @@ public class AdminHomePageController {
         textFieldDelete.clear();
     }
 
+    /**
+     * The handleSignOut() returns the user to the login screen.
+     */
+    public void handleSignOut() {
+        try {
+            App.setRoot("userLogin.fxml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }
