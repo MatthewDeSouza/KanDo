@@ -67,8 +67,6 @@ public class AdminHomePageController {
     @FXML
     private TextField textFieldUserName;
     @FXML
-    private TextField textFieldPhone;
-    @FXML
     private TextField textFieldPassword;
     private ObservableList<String> statusList2;
     private ObservableList<String> projects;
@@ -116,14 +114,12 @@ public class AdminHomePageController {
     public void handleCreateUser() {
         String email = textFieldEmail.getText();
         String name = textFieldUserName.getText();
-        String phone = textFieldPhone.getText();
         String password = textFieldPassword.getText();
 
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                 .setEmail(email)
                 .setEmailVerified(false)
                 .setPassword(password)
-                .setPhoneNumber(phone)
                 .setDisplayName(name)
                 .setDisabled(false);
 
@@ -135,6 +131,9 @@ public class AdminHomePageController {
         } catch (FirebaseAuthException ex) {
             ex.printStackTrace();
         }
+        textFieldEmail.clear();
+        textFieldUserName.clear();
+        textFieldPassword.clear();
     }
 
     /**
@@ -192,6 +191,8 @@ public class AdminHomePageController {
         data.put("endDate", endDate);
         ApiFuture<WriteResult> result = docRef.set(data);
         projects.add(name);
+        textFieldProjectName.clear();
+        textFieldProjectDesc.clear();
     }
 
     /**
@@ -210,6 +211,9 @@ public class AdminHomePageController {
         data.put("type", type);
         data.put("status", status);
         ApiFuture<WriteResult> result = docRef.set(data);
+        textFieldTaskName.clear();
+        textFieldTaskDesc.clear();
+        textFieldTaskType.clear();
     }
 
     /**
@@ -236,6 +240,7 @@ public class AdminHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        textFieldUpdate.clear();
     }
     
     /**
@@ -259,6 +264,7 @@ public class AdminHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        textFieldDelete.clear();
     }
     
 }
