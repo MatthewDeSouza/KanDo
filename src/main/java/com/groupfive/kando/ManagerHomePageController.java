@@ -154,6 +154,8 @@ public class ManagerHomePageController {
         data.put("endDate", endDate);
         ApiFuture<WriteResult> result = docRef.set(data);
         projects.add(name);
+        textFieldProjectName.clear();
+        textFieldProjectDesc.clear();
     }
 
     /**
@@ -172,6 +174,9 @@ public class ManagerHomePageController {
         data.put("type", type);
         data.put("status", status);
         ApiFuture<WriteResult> result = docRef.set(data);
+        textFieldTaskName.clear();
+        textFieldTaskDesc.clear();
+        textFieldTaskType.clear();
     }
 
     /**
@@ -198,6 +203,7 @@ public class ManagerHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        textFieldUpdate.clear();
     }
     
     /**
@@ -221,6 +227,7 @@ public class ManagerHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        textFieldDelete.clear();
     }
     
 }
