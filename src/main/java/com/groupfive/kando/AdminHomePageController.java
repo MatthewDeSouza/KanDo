@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 /**
  * The AdminHomePageController class contains GUI logic for the administrator's
  * homepage.
+ *
  * @author Chris Masoud
  * @author Matthew Desouza
  */
@@ -107,7 +108,7 @@ public class AdminHomePageController {
         statusList2.add("Done");
 
     }
-    
+
     /**
      * The handleCreateUser() method registers a new user into Firebase.
      */
@@ -231,9 +232,8 @@ public class AdminHomePageController {
                     .whereEqualTo("name", name)
                     .get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
-            for (DocumentSnapshot doc : documents) {
-                docId = doc.getString(name);
-            }
+            DocumentSnapshot doc = documents.get(0);
+            docId = doc.getId();
             DocumentReference docRef = db.collection("Tickets").document(docId);
             ApiFuture<WriteResult> future = docRef.update("status", status);
             WriteResult result = future.get();
@@ -244,7 +244,7 @@ public class AdminHomePageController {
         }
         textFieldUpdate.clear();
     }
-    
+
     /**
      * The handleDelete() method deletes a ticket from Firestore.
      */
@@ -257,9 +257,8 @@ public class AdminHomePageController {
                     .whereEqualTo("name", name)
                     .get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
-            for (DocumentSnapshot doc : documents) {
-                docId = doc.getString(name);
-            }
+            DocumentSnapshot doc = documents.get(0);
+            docId = doc.getId();
             ApiFuture<WriteResult> writeResult = db.collection("Tickets").document(docId).delete();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
@@ -268,5 +267,5 @@ public class AdminHomePageController {
         }
         textFieldDelete.clear();
     }
-    
+
 }
