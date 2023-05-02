@@ -43,7 +43,6 @@
                            <children>
                               <TextField fx:id="textFieldUserName" promptText="Display Name" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
                               <TextField fx:id="textFieldEmail" promptText="Email" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
-                              <TextField fx:id="textFieldPhone" promptText="Phone Number" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
                               <TextField fx:id="textFieldPassword" promptText="Password" style="-fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" />
                               <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCreateUser" style="-fx-background-color: #0598ff;" text="Register New User" />
                            </children>
