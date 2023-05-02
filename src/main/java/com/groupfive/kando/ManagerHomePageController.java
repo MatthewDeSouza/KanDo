@@ -194,9 +194,8 @@ public class ManagerHomePageController {
                     .whereEqualTo("name", name)
                     .get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
-            for (DocumentSnapshot doc : documents) {
-                docId = doc.getString(name);
-            }
+            DocumentSnapshot doc = documents.get(0);
+            docId = doc.getId();
             DocumentReference docRef = db.collection("Tickets").document(docId);
             ApiFuture<WriteResult> future = docRef.update("status", status);
             WriteResult result = future.get();
@@ -207,7 +206,7 @@ public class ManagerHomePageController {
         }
         textFieldUpdate.clear();
     }
-    
+
     /**
      * The handleDelete() method deletes a ticket from Firestore.
      */
@@ -220,9 +219,8 @@ public class ManagerHomePageController {
                     .whereEqualTo("name", name)
                     .get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
-            for (DocumentSnapshot doc : documents) {
-                docId = doc.getString(name);
-            }
+            DocumentSnapshot doc = documents.get(0);
+            docId = doc.getId();
             ApiFuture<WriteResult> writeResult = db.collection("Tickets").document(docId).delete();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
