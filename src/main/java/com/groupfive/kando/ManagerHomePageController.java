@@ -166,6 +166,7 @@ public class ManagerHomePageController {
         String desc = textFieldTaskDesc.getText();
         String type = textFieldTaskType.getText();
         String status = comboBoxStatus.getValue().toString();
+        String project = comboBoxProject.getValue().toString();
 
         DocumentReference docRef = db.collection("Tickets").document(UUID.randomUUID().toString());
         Map<String, String> data = new HashMap<>();
@@ -173,6 +174,7 @@ public class ManagerHomePageController {
         data.put("description", desc);
         data.put("type", type);
         data.put("status", status);
+        data.put("project", project);
         ApiFuture<WriteResult> result = docRef.set(data);
         textFieldTaskName.clear();
         textFieldTaskDesc.clear();
