@@ -199,16 +199,5 @@ public class TeamMemberHomePageController {
         }
         textFieldDelete.clear();
     }
-    
-    /**
-     * The handleSignOut() returns the user to the login screen.
-     */
-    public void handleSignOut() {
-        try {
-            App.setRoot("userLogin.fxml");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
 }
