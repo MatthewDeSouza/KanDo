@@ -143,6 +143,9 @@ public class TeamMemberHomePageController {
         data.put("type", type);
         data.put("status", status);
         ApiFuture<WriteResult> result = docRef.set(data);
+        textFieldTaskName.clear();
+        textFieldTaskDesc.clear();
+        textFieldTaskType.clear();
     }
 
     /**
@@ -169,6 +172,7 @@ public class TeamMemberHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        textFieldUpdate.clear();
     }
 
     /**
@@ -192,6 +196,7 @@ public class TeamMemberHomePageController {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
+        textFieldDelete.clear();
     }
 
 }
