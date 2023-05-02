@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 
 /**
  * The UserLoginController class GUI logic for the app's login page.
+ *
  * @author Chris Masoud
  * @author Matthew DeSouza
  */
@@ -21,7 +22,7 @@ public class UserLoginController {
     private TextField textFieldEmail;
     @FXML
     private TextField textFieldPassword;
-    
+
     /**
      * The initialize() method runs at the start of the app and contains code to
      * set up the app.
@@ -35,8 +36,8 @@ public class UserLoginController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
 
+    }
     /**
      * The handleLogin() method authenticates and opens the appropriate homepage
      * depending on the user's access level.
