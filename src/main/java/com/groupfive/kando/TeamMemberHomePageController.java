@@ -9,7 +9,6 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import com.groupfive.kando.backend.classes.Ticket;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +19,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The TeamMemberHomePageController class contains GUI logic for the team 
@@ -28,6 +29,7 @@ import javafx.scene.control.TextField;
  * @author Matthew Desouza
  */
 public class TeamMemberHomePageController {
+    private static final Logger log = LoggerFactory.getLogger(TeamMemberHomePageController.class);
 
     @FXML
     private ComboBox comboBoxProject;
@@ -78,9 +80,9 @@ public class TeamMemberHomePageController {
                 projects.add(document.get("name").toString());
             }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            log.warn("InterruptedException: {}", ex.getMessage());
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.warn("ExecutionException: {}", ex.getMessage());
         }
         statusList.add("To Do");
         statusList.add("Doing");
@@ -122,9 +124,11 @@ public class TeamMemberHomePageController {
                 }
             }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            log.warn("InterruptedException: {}", ex.getMessage());
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.warn("ExecutionException: {}", ex.getMessage());
+        } catch (RuntimeException ex) {
+            log.warn("No project selected! RuntimeException: {}", ex.getMessage());
         }
     }
 
@@ -132,20 +136,28 @@ public class TeamMemberHomePageController {
      * The handleAddTask() method adds a new ticket into Firestore.
      */
     public void handleAddTask() {
-        String name = textFieldTaskName.getText();
-        String desc = textFieldTaskDesc.getText();
-        String type = textFieldTaskType.getText();
-        String status = comboBoxStatus.getValue().toString();
-        String project = comboBoxProject.getValue().toString();
+        try {
+            log.info("Adding new task.");
+            String name = textFieldTaskName.getText();
+            String desc = textFieldTaskDesc.getText();
+            String type = textFieldTaskType.getText();
+            String status = comboBoxStatus.getValue().toString();
+            String project = comboBoxProject.getValue().toString();
 
-        DocumentReference docRef = db.collection("Tickets").document(UUID.randomUUID().toString());
-        Map<String, String> data = new HashMap<>();
-        data.put("name", name);
-        data.put("description", desc);
-        data.put("type", type);
-        data.put("status", status);
-        data.put("project", project);
-        ApiFuture<WriteResult> result = docRef.set(data);
+            log.info("Querying Firestore.");
+            DocumentReference docRef = db.collection("Tickets").document(UUID.randomUUID().toString());
+            Map<String, String> data = new HashMap<>();
+            data.put("name", name);
+            data.put("description", desc);
+            data.put("type", type);
+            data.put("status", status);
+            data.put("project", project);
+            ApiFuture<WriteResult> result = docRef.set(data);
+        } catch (RuntimeException ex) {
+            log.warn("No project selected! RuntimeException: {}", ex.getMessage());
+        }
+
+
         textFieldTaskName.clear();
         textFieldTaskDesc.clear();
         textFieldTaskType.clear();
@@ -156,6 +168,7 @@ public class TeamMemberHomePageController {
      */
     public void handleUpdateStatus() {
         try {
+            log.info("Updating status.");
             String name = textFieldUpdate.getText();
             String status = comboBoxUpdate.getValue().toString();
             String docId = "";
@@ -170,8 +183,10 @@ public class TeamMemberHomePageController {
             ApiFuture<WriteResult> future = docRef.update("status", status);
             WriteResult result = future.get();
         } catch (InterruptedException ex) {
+            log.warn("InterruptedException: {}", ex.getMessage());
             ex.printStackTrace();
         } catch (ExecutionException ex) {
+            log.warn("ExecutionException: {}", ex.getMessage());
             ex.printStackTrace();
         }
         textFieldUpdate.clear();
@@ -182,6 +197,7 @@ public class TeamMemberHomePageController {
      */
     public void handleDelete() {
         try {
+            log.info("Deleting ticket.");
             String name = textFieldDelete.getText();
             String docId = "";
 
@@ -191,13 +207,15 @@ public class TeamMemberHomePageController {
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
             DocumentSnapshot doc = documents.get(0);
             docId = doc.getId();
+            log.warn("Deleting ticket with ID: {}", docId);
             ApiFuture<WriteResult> writeResult = db.collection("Tickets").document(docId).delete();
         } catch (InterruptedException ex) {
+            log.warn("InterruptedException: {}", ex.getMessage());
             ex.printStackTrace();
         } catch (ExecutionException ex) {
+            log.warn("ExecutionException: {}", ex.getMessage());
             ex.printStackTrace();
         }
         textFieldDelete.clear();
     }
-
 }

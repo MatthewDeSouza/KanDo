@@ -3,6 +3,7 @@ module com.groupfive.kando {
     requires javafx.fxml;
     requires org.slf4j;
     requires ch.qos.logback.classic;
+    requires ch.qos.logback.core;
     requires com.google.auth;
     requires com.google.auth.oauth2;
     requires firebase.admin;
@@ -14,5 +15,6 @@ module com.groupfive.kando {
     opens com.groupfive.kando to javafx.fxml;
     exports com.groupfive.kando;
     exports com.groupfive.kando.backend.classes;
+    exports com.groupfive.kando.logging to ch.qos.logback.core;
     opens com.groupfive.kando.backend.classes to javafx.fxml;
 }
