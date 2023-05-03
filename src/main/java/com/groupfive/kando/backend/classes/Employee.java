@@ -1,7 +1,5 @@
 package com.groupfive.kando.backend.classes;
 
-import com.groupfive.kando.backend.exception.EmployeeHasTaskException;
-
 import java.util.Set;
 import java.util.UUID;
 

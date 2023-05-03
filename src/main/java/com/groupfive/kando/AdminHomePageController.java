@@ -1,29 +1,26 @@
 package com.groupfive.kando;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.groupfive.kando.backend.classes.Ticket;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * The AdminHomePageController class contains GUI logic for the administrator's
@@ -33,6 +30,7 @@ import javafx.scene.control.TextField;
  * @author Matthew Desouza
  */
 public class AdminHomePageController {
+    private static final Logger log = LoggerFactory.getLogger(AdminHomePageController.class);
 
     @FXML
     private ComboBox comboBoxProject;
@@ -83,24 +81,34 @@ public class AdminHomePageController {
      * set up the app.
      */
     public void initialize() {
+        log.info("Initializing AdminHomePageController");
         statusList = comboBoxStatus.getItems();
+        log.info("statusList: {}", statusList);
         statusList2 = comboBoxUpdate.getItems();
+        log.info("statusList2: {}", statusList2);
         projects = comboBoxProject.getItems();
+        log.info("projects: {}", projects);
         toDoTickets = listViewToDo.getItems();
+        log.info("toDoTickets: {}", toDoTickets);
         doingTickets = listViewDoing.getItems();
+        log.info("doingTickets: {}", doingTickets);
         doneTickets = listViewDone.getItems();
+        log.info("doneTickets: {}", doneTickets);
+
         db = FirestoreClient.getFirestore();
         try {
+            log.info("Getting projects from Firestore.");
             ApiFuture<QuerySnapshot> query = db.collection("Projects").get();
             List<QueryDocumentSnapshot> documents = query.get().getDocuments();
             for (DocumentSnapshot document : documents) {
                 projects.add(document.get("name").toString());
             }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            log.warn("InterruptedException: {}", ex.getMessage());
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.warn("ExecutionException: {}", ex.getMessage());
         }
+        log.info("Initializing status lists.");
         statusList.add("To Do");
         statusList.add("Doing");
         statusList.add("Done");
@@ -118,6 +126,7 @@ public class AdminHomePageController {
         String name = textFieldUserName.getText();
         String password = textFieldPassword.getText();
 
+        log.info("Creating new user: {}", email);
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                 .setEmail(email)
                 .setEmailVerified(false)
@@ -126,12 +135,14 @@ public class AdminHomePageController {
                 .setDisabled(false);
 
         UserRecord userRecord;
+        log.info("Adding user to Firebase.");
         try {
+            log.info("Creating user record.");
             userRecord = FirebaseAuth.getInstance().createUser(request);
-            System.out.println("Successfully created new user: " + userRecord.getUid());
+            log.info("Successfully created new user: {}", userRecord.getUid());
 
         } catch (FirebaseAuthException ex) {
-            ex.printStackTrace();
+            log.warn("FirebaseAuthException: {}", ex.getMessage());
         }
         textFieldEmail.clear();
         textFieldUserName.clear();
@@ -146,8 +157,10 @@ public class AdminHomePageController {
         toDoTickets.clear();
         doingTickets.clear();
         doneTickets.clear();
+        log.info("Getting tickets from Firestore.");
         try {
             String projectName = comboBoxProject.getValue().toString();
+            log.info("Querying Firestore for tickets from project: {}", projectName);
             ApiFuture<QuerySnapshot> query = db.collection("Tickets")
                     .whereEqualTo("project", projectName)
                     .get();
@@ -155,24 +168,24 @@ public class AdminHomePageController {
             for (DocumentSnapshot doc : documents) {
                 Ticket ticket = new Ticket(doc.getString("name"), doc.getString("description"), doc.getString("status"), doc.getString("type"));
                 switch (ticket.getStatus()) {
-                    case "To Do":
-                        toDoTickets.add(ticket);
-                        break;
                     case "Doing":
+                        log.info("Adding ticket to doingTickets: {}", ticket);
                         doingTickets.add(ticket);
                         break;
                     case "Done":
+                        log.info("Adding ticket to doneTickets: {}", ticket);
                         doneTickets.add(ticket);
                         break;
                     default:
+                        log.info("Adding ticket to toDoTickets: {}", ticket);
                         toDoTickets.add(ticket);
                         break;
                 }
             }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            log.warn("InterruptedException: {}", ex.getMessage());
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.warn("ExecutionException: {}", ex.getMessage());
         }
     }
 
@@ -185,6 +198,7 @@ public class AdminHomePageController {
         String startDate = datePickerStart.getValue().toString();
         String endDate = datePickerEnd.getValue().toString();
 
+        log.info("Adding project to Firestore.");
         DocumentReference docRef = db.collection("Projects").document(UUID.randomUUID().toString());
         Map<String, String> data = new HashMap<>();
         data.put("name", name);
@@ -195,6 +209,11 @@ public class AdminHomePageController {
         projects.add(name);
         textFieldProjectName.clear();
         textFieldProjectDesc.clear();
+        if (result.isCancelled()) {
+            log.warn("Adding project [{}] to Firestore was cancelled.", name);
+        } else if (result.isDone()) {
+            log.info("Successfully added project [{}] to Firestore.", name);
+        }
     }
 
     /**
@@ -207,6 +226,7 @@ public class AdminHomePageController {
         String status = comboBoxStatus.getValue().toString();
         String project = comboBoxProject.getValue().toString();
 
+        log.info("Adding ticket to Firestore.");
         DocumentReference docRef = db.collection("Tickets").document(UUID.randomUUID().toString());
         Map<String, String> data = new HashMap<>();
         data.put("name", name);
@@ -218,6 +238,11 @@ public class AdminHomePageController {
         textFieldTaskName.clear();
         textFieldTaskDesc.clear();
         textFieldTaskType.clear();
+        if (result.isCancelled()) {
+            log.warn("Adding ticket [{}] to Firestore was cancelled.", name);
+        } else if (result.isDone()) {
+            log.info("Successfully added ticket [{}] to Firestore.", name);
+        }
     }
 
     /**
@@ -229,6 +254,7 @@ public class AdminHomePageController {
             String status = comboBoxUpdate.getValue().toString();
             String docId = "";
 
+            log.info("Updating ticket status in Firestore.");
             ApiFuture<QuerySnapshot> query = db.collection("Tickets")
                     .whereEqualTo("name", name)
                     .get();
@@ -238,10 +264,15 @@ public class AdminHomePageController {
             DocumentReference docRef = db.collection("Tickets").document(docId);
             ApiFuture<WriteResult> future = docRef.update("status", status);
             WriteResult result = future.get();
+            if (result == null) {
+                log.warn("Updating ticket [{}] status in Firestore was cancelled.", name);
+            } else {
+                log.info("Successfully updated ticket [{}] status in Firestore.", name);
+            }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            log.warn("InterruptedException: {}", ex.getMessage());
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.warn("ExecutionException: {}", ex.getMessage());
         }
         textFieldUpdate.clear();
     }
@@ -254,6 +285,7 @@ public class AdminHomePageController {
             String name = textFieldDelete.getText();
             String docId = "";
 
+            log.info("Deleting ticket [{}] from Firestore.", name);
             ApiFuture<QuerySnapshot> query = db.collection("Tickets")
                     .whereEqualTo("name", name)
                     .get();
@@ -261,12 +293,16 @@ public class AdminHomePageController {
             DocumentSnapshot doc = documents.get(0);
             docId = doc.getId();
             ApiFuture<WriteResult> writeResult = db.collection("Tickets").document(docId).delete();
+            if (writeResult.isCancelled()) {
+                log.warn("Deleting ticket [{}] from Firestore was cancelled.", name);
+            } else if (writeResult.isDone()) {
+                log.info("Successfully deleted ticket [{}] from Firestore.", name);
+            }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            log.warn("InterruptedException: {}", ex.getMessage());
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.warn("ExecutionException: {}", ex.getMessage());
         }
         textFieldDelete.clear();
     }
-    
 }

@@ -22,6 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * FXML Controller class
@@ -29,6 +31,8 @@ import javafx.scene.control.TextField;
  * @author sam
  */
 public class CreateUserController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(CreateUserController.class);
+
     @FXML
     private TextField txtEmail;
 
@@ -45,12 +49,13 @@ public class CreateUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        log.info("Initializing CreateUserController");
         initializeFirebase();
     }
 
     private void initializeFirebase() {
         try {
-
+            log.info("Initializing Firebase from provided API key");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(getClass().getResourceAsStream("key.json")))
                     .setDatabaseUrl("https://your-database-url.firebaseio.com")
@@ -62,9 +67,9 @@ public class CreateUserController implements Initializable {
             databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.warn("API key file not found");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warn("Error initializing Firebase. IOException: {}", e.getMessage());
         }
     }
 
@@ -90,6 +95,7 @@ public class CreateUserController implements Initializable {
 
     private void saveUser(User user) {
         if (databaseReference != null) {
+            log.info("Saving user [{}] to Firebase", user.getEmail());
             // Persist the user data using the user's UUID as the key
             databaseReference.child(user.getUUID().toString()).setValueAsync(user);
         }
